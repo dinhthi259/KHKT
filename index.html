@@ -15,6 +15,15 @@
 </head>
 
 <body>
+    <header class="app-header">
+        <div class="header-left">
+            🗺️ BẢN ĐỒ ĐỀ XUẤT ĐƯỜNG ĐI
+        </div>
+        <div class="header-right">
+            Hệ thống hỗ trợ định tuyến & cảnh báo ngập lụt
+        </div>
+    </header>
+
     <div id="floodNotice" class="flood-notice">
         <div class="flood-notice-content">
             <h2>⚠️ CẢNH BÁO NGẬP LỤT ⚠️</h2>
@@ -48,7 +57,7 @@
             <button id="resetBtn">♻ Reset</button>
 
             <hr />
-            <h3>🚧 Đường bị ngập</h3>
+            <h3>🚧 Các tuyến đường bị ngập</h3>
             <ul id="blockedList"></ul>
 
             <button id="clearBlock">🧹 Clear block</button>
@@ -96,11 +105,13 @@
                 ⚠️ Lưu ý: Việc báo cáo sai sự thật sẽ bị xử lý theo quy định của pháp luật.
             </p>
             <div class="rescue-commit">
-                <label>
-                    <input type="checkbox" id="commitCheckbox" />
-                    Tôi cam kết thông tin là đúng sự thật
+                <input type="checkbox" id="commitCheckbox" />
+                <label for="commitCheckbox">
+                    Tôi cam kết thông tin cung cấp là <b>đúng sự thật</b> và chịu trách nhiệm
+    trước pháp luật.
                 </label>
             </div>
+
 
 
             <div class="rescue-actions">
@@ -122,6 +133,13 @@
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
 
     <script src="app.js"></script>
+    <footer class="app-footer">
+        <p>
+            © 2025 | Đồ án Hệ thống thông tin địa lý (GIS) <br />
+            Bản đồ đề xuất đường đi an toàn trong điều kiện ngập lụt
+        </p>
+    </footer>
+
 </body>
 
 </html>

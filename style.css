@@ -1,13 +1,59 @@
-html,
 body {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Phần chính (sidebar + map) */
 #app {
-  display: flex;
-  height: 100%;
+    flex: 1;
+    display: flex;
+}
+
+/* ===== HEADER ===== */
+.app-header {
+    height: 56px;
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+    font-family: "Segoe UI", system-ui, sans-serif;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.header-left {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.header-right {
+    font-size: 13px;
+    opacity: 0.9;
+}
+/* ===== FOOTER ===== */
+.app-footer {
+    height: 48px;
+    background: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 12px;
+    color: #374151;
+
+    text-align: center;
+    padding: 4px 10px;
 }
 
 #sidebar {
@@ -42,6 +88,164 @@ button {
   margin-top: 10px;
   font-size: 14px;
 }
+/* ===== APP LAYOUT ===== */
+#app {
+    display: flex;
+    height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+#sidebar {
+    width: 300px;
+    padding: 16px 14px;
+    background: #ffffff;
+
+    border-right: 1px solid #e5e7eb;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+
+    font-family: "Segoe UI", system-ui, sans-serif;
+    overflow-y: auto;
+}
+
+/* ===== TITLE ===== */
+#sidebar h2 {
+    margin-bottom: 14px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ===== LABEL ===== */
+#sidebar label {
+    display: block;
+    margin: 10px 0 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* ===== INPUT / SELECT ===== */
+#sidebar input,
+#sidebar select {
+    width: 95%;
+    padding: 9px 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+#sidebar input:focus,
+#sidebar select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* ===== BUTTONS ===== */
+#sidebar button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+/* Tìm đường */
+#routeBtn {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+}
+
+#routeBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+}
+
+/* Reset */
+#resetBtn {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+#resetBtn:hover {
+    background: #e5e7eb;
+}
+
+/* ===== HR ===== */
+#sidebar hr {
+    margin: 16px 0;
+    border: none;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+/* ===== BLOCKED ROADS ===== */
+#sidebar h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #b91c1c;
+    margin-bottom: 6px;
+}
+
+#blockedList {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 8px;
+}
+
+#blockedList li {
+    font-size: 13px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: #fee2e2;
+    color: #991b1b;
+    margin-bottom: 4px;
+}
+
+/* Clear block */
+#clearBlock {
+    background: #ef4444;
+    color: white;
+}
+
+#clearBlock:hover {
+    background: #dc2626;
+}
+
+/* ===== ROUTE INFO ===== */
+.route-info {
+    margin-top: 14px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #f9fafb;
+    border: 1px dashed #d1d5db;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.info-item .icon {
+    font-weight: 600;
+    color: #374151;
+}
+
+/* ===== HIDDEN ===== */
+.hidden {
+    display: none;
+}
+
 /* =========================
    ROUTE INFO BOX
 ========================= */
@@ -131,6 +335,26 @@ button {
   background: #ffe4e1;
   transform: scale(1.05);
 }
+.rescue-commit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.rescue-commit input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.rescue-commit label {
+    cursor: pointer;
+    user-select: none;
+}
+
 /* ===== RESCUE BUTTON ===== */
 #rescueBtn {
   position: absolute;
