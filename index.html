@@ -17,12 +17,12 @@
 <body>
     <div id="floodNotice" class="flood-notice">
         <div class="flood-notice-content">
-          <h2>⚠️ CẢNH BÁO NGẬP LỤT ⚠️</h2>
-          <p>
-            Một vài khu vực hiện đang bị ngập. Hãy quan sát bản đồ và lựa chọn tuyến đường
-            an toàn hoặc yêu cầu cứu hộ nếu cần thiết.
-          </p>
-          <button id="closeNoticeBtn">Đã hiểu</button>
+            <h2>⚠️ CẢNH BÁO NGẬP LỤT ⚠️</h2>
+            <p>
+                Một vài khu vực hiện đang bị ngập. Hãy quan sát bản đồ và lựa chọn tuyến đường
+                an toàn hoặc yêu cầu cứu hộ nếu cần thiết.
+            </p>
+            <button id="closeNoticeBtn">Đã hiểu</button>
         </div>
     </div>
 
@@ -70,12 +70,45 @@
         <!-- MAP -->
         <div id="map"></div>
     </div>
+    <!-- Rescue Report Button -->
+    <div id="rescueBtn" title="Báo cáo cứu hộ">
+        🚨
+    </div>
+
+    <!-- Rescue Form Modal -->
+    <div id="rescueModal" class="rescue-modal hidden">
+        <div class="rescue-content">
+            <h2>🚨 Báo Cáo Cứu Hộ</h2>
+
+            <label>Họ và tên</label>
+            <input id="rescueName" placeholder="Nhập họ và tên" />
+
+            <label>Số điện thoại</label>
+            <input id="rescuePhone" placeholder="Nhập thông tin liên lạc" />
+
+            <label>Địa điểm cần cứu hộ</label>
+            <input id="rescueAddress" placeholder="Nhập địa điểm hiện tại của bạn" />
+
+            <label>Lý do cứu hộ</label>
+            <textarea id="rescueReason" rows="3" placeholder="Ngập nước, kẹt xe, cần hỗ trợ y tế..."></textarea>
+
+            <p class="legal-warning">
+                ⚠️ Lưu ý: Việc báo cáo sai sự thật sẽ bị xử lý theo quy định của pháp luật.
+            </p>
+
+            <div class="rescue-actions">
+                <button id="submitRescue">📨 Gửi báo cáo</button>
+                <button id="cancelRescue">❌ Hủy</button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
 
-    <script src="app.js"></script>
+    <script src="app.js"></script>  
 </body>
 
 </html>

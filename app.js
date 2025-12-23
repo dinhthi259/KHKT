@@ -442,7 +442,7 @@ function updateBlockedList() {
   ul.innerHTML = "";
   blockedEdges.forEach((id) => {
     const li = document.createElement("li");
-    if(id === 1279915923 && isFloodMode) {
+    if (id === 1279915923 && isFloodMode) {
       li.textContent = `Đường Bạch Đằng (Đang Ngập)`;
     } else {
       li.textContent = `OSM Way ${id}`;
@@ -520,3 +520,92 @@ document.getElementById("clearBlock").onclick = () => {
 };
 
 setInterval(checkFloodStatus, 3000);
+/* =========================
+   RESCUE REPORT (MANUAL)
+========================= */
+const rescueBtn = document.getElementById("rescueBtn");
+const rescueModal = document.getElementById("rescueModal");
+const cancelRescue = document.getElementById("cancelRescue");
+const submitRescue = document.getElementById("submitRescue");
+
+const rescueName = document.getElementById("rescueName");
+const rescuePhone = document.getElementById("rescuePhone");
+const rescueAddress = document.getElementById("rescueAddress");
+const rescueReason = document.getElementById("rescueReason");
+
+// Mở form
+rescueBtn.onclick = () => {
+  rescueModal.classList.remove("hidden");
+};
+
+// Hủy
+cancelRescue.onclick = () => {
+  rescueModal.classList.add("hidden");
+};
+
+// Gửi báo cáo
+submitRescue.onclick = async () => {
+  const name = rescueName.value.trim();
+  const phone = rescuePhone.value.trim();
+  const address = rescueAddress.value.trim();
+  const reason = rescueReason.value.trim();
+
+  if (!name || !phone || !address || !reason) {
+    alert("⚠️ Vui lòng điền đầy đủ thông tin");
+    return;
+  }
+  const phoneRegex = /^(0|\+84)[0-9]{9}$/;
+  if (!phoneRegex.test(phone)) {
+    alert("⚠️ Số điện thoại không hợp lệ");
+    return;
+  }
+
+  const ok = confirm(
+    "⚠️ CẢNH BÁO PHÁP LUẬT ⚠️\n\n" +
+      "Báo cáo sai sự thật sẽ bị xử lý theo quy định pháp luật.\n\n" +
+      "Bạn xác nhận gửi thông tin?"
+  );
+
+  if (!ok) return;
+
+  try {
+    await sendEmail(name, phone, address, reason);
+    alert("✅ Yêu cầu cứu hộ của bạn đã được gửi đến trung tâm.");
+    rescueModal.classList.add("hidden");
+  } catch (err) {
+    console.error("Lỗi gửi email:", err);
+    alert("❌ Gửi email thất bại. Vui lòng thử lại sau.");
+  }
+
+  rescueModal.classList.add("hidden");
+
+  // reset form
+  rescueName.value = "";
+  rescuePhone.value = "";
+  rescueAddress.value = "";
+  rescueReason.value = "";
+};
+// Hàm gửi email qua EmailJS
+async function sendEmail(name, phone, address, desc) {
+  const templateParams = {
+    rescue_name: name,
+    rescue_phone: phone,
+    rescue_address: address,
+    rescue_desc: desc,
+  };
+
+  const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      service_id: "service_ih1vkhc", // 🔹 thay bằng service ID của bạn
+      template_id: "template_6noiann", // 🔹 thay bằng template ID của bạn
+      user_id: "Xs6XzRo559iGDXWjV", // 🔹 thay bằng public key (EmailJS public key)
+      template_params: templateParams,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Không thể gửi email");
+  }
+}

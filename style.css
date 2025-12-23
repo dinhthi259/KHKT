@@ -131,3 +131,178 @@ button {
   background: #ffe4e1;
   transform: scale(1.05);
 }
+/* ===== RESCUE BUTTON ===== */
+#rescueBtn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  background: red;
+  color: white;
+  font-size: 26px;
+  padding: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,0,0,0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(255,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,0,0,0); }
+}
+
+/* ===== MODAL ===== */
+/* =========================
+   RESCUE MODAL OVERLAY
+========================= */
+.rescue-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.rescue-modal.hidden {
+  display: none;
+}
+
+/* =========================
+   RESCUE CONTENT BOX
+========================= */
+.rescue-content {
+  background: #ffffff;
+  width: 420px;
+  max-width: 92%;
+  padding: 24px 26px;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.35s ease;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* =========================
+   TITLE
+========================= */
+.rescue-content h2 {
+  margin: 0 0 18px;
+  color: #d60000;
+  font-size: 22px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* =========================
+   LABELS
+========================= */
+.rescue-content label {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+/* =========================
+   INPUT & TEXTAREA
+========================= */
+.rescue-content input,
+.rescue-content textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.rescue-content textarea {
+  resize: none;
+}
+
+.rescue-content input:focus,
+.rescue-content textarea:focus {
+  border-color: #ff3b3b;
+  box-shadow: 0 0 0 2px rgba(255, 59, 59, 0.15);
+}
+
+/* =========================
+   LEGAL WARNING
+========================= */
+.legal-warning {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-left: 4px solid #ff9800;
+  background: #fff7e6;
+  color: #c05600;
+  font-size: 13px;
+  line-height: 1.4;
+  border-radius: 6px;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+.rescue-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.rescue-actions button {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* SEND BUTTON */
+#submitRescue {
+  background: linear-gradient(135deg, #ff3b3b, #ff6b6b);
+  color: white;
+}
+
+#submitRescue:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 59, 59, 0.4);
+}
+
+/* CANCEL BUTTON */
+#cancelRescue {
+  background: #f1f1f1;
+  color: #555;
+}
+
+#cancelRescue:hover {
+  background: #e0e0e0;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
