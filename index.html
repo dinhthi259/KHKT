@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Mini Google Maps Clone</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Leaflet Draw -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css" />
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="floodNotice" class="flood-notice">
+        <div class="flood-notice-content">
+          <h2>⚠️ CẢNH BÁO NGẬP LỤT ⚠️</h2>
+          <p>
+            Một vài khu vực hiện đang bị ngập. Hãy quan sát bản đồ và lựa chọn tuyến đường
+            an toàn hoặc yêu cầu cứu hộ nếu cần thiết.
+          </p>
+          <button id="closeNoticeBtn">Đã hiểu</button>
+        </div>
+    </div>
+
+    <div id="app">
+        <!-- LEFT PANEL -->
+        <div id="sidebar">
+            <h2>🗺 Mini Maps</h2>
+
+            <label>Điểm bắt đầu</label>
+            <input id="start" placeholder="Click trên bản đồ" />
+
+            <label>Điểm kết thúc</label>
+            <input id="end" placeholder="Click trên bản đồ" />
+
+            <label>Phương tiện</label>
+            <select id="mode">
+                <option value="foot">🚶 Đi bộ</option>
+                <option value="bike">🚲 Xe đạp</option>
+                <option value="car">🚗 Ô tô</option>
+            </select>
+
+            <button id="routeBtn">🔍 Tìm đường</button>
+            <button id="resetBtn">♻ Reset</button>
+
+            <hr />
+            <h3>🚧 Đường bị ngập</h3>
+            <ul id="blockedList"></ul>
+
+            <button id="clearBlock">🧹 Clear block</button>
+
+            <div id="info"></div>
+            <div id="routeInfo" class="route-info hidden">
+                <div class="info-item">
+                    <span class="icon">Distance: </span>
+                    <span id="distance">0 km</span>
+                </div>
+                <div class="info-item">
+                    <span class="icon">Time: </span>
+                    <span id="time">0 minute</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MAP -->
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
