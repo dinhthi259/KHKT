@@ -533,18 +533,39 @@ const rescuePhone = document.getElementById("rescuePhone");
 const rescueAddress = document.getElementById("rescueAddress");
 const rescueReason = document.getElementById("rescueReason");
 
+const loadingOverlay = document.getElementById("loadingOverlay");
+const commitCheckbox = document.getElementById("commitCheckbox");
+
+
+submitRescue.disabled = true;
+commitCheckbox.addEventListener("change", () => {
+  submitRescue.disabled = !commitCheckbox.checked;
+});
+
 // Mở form
 rescueBtn.onclick = () => {
   rescueModal.classList.remove("hidden");
+  commitCheckbox.checked = false;
+  submitRescue.disabled = true;
 };
 
 // Hủy
 cancelRescue.onclick = () => {
+  rescueName.value = "";
+  rescuePhone.value = "";
+  rescueAddress.value = "";
+  rescueReason.value = "";
   rescueModal.classList.add("hidden");
+  commitCheckbox.checked = false;
+  submitRescue.disabled = true;
 };
 
 // Gửi báo cáo
 submitRescue.onclick = async () => {
+  if (!commitCheckbox.checked) {
+  alert("⚠️ Bạn phải cam kết thông tin là đúng sự thật trước khi gửi.");
+  return;
+}
   const name = rescueName.value.trim();
   const phone = rescuePhone.value.trim();
   const address = rescueAddress.value.trim();
@@ -554,6 +575,7 @@ submitRescue.onclick = async () => {
     alert("⚠️ Vui lòng điền đầy đủ thông tin");
     return;
   }
+
   const phoneRegex = /^(0|\+84)[0-9]{9}$/;
   if (!phoneRegex.test(phone)) {
     alert("⚠️ Số điện thoại không hợp lệ");
@@ -565,26 +587,36 @@ submitRescue.onclick = async () => {
       "Báo cáo sai sự thật sẽ bị xử lý theo quy định pháp luật.\n\n" +
       "Bạn xác nhận gửi thông tin?"
   );
-
   if (!ok) return;
 
   try {
+    // 🔥 HIỆN LOADING
+    loadingOverlay.classList.remove("hidden");
+    submitRescue.disabled = true;
+
     await sendEmail(name, phone, address, reason);
+
     alert("✅ Yêu cầu cứu hộ của bạn đã được gửi đến trung tâm.");
     rescueModal.classList.add("hidden");
+
+    // reset form
+    rescueName.value = "";
+    rescuePhone.value = "";
+    rescueAddress.value = "";
+    rescueReason.value = "";
+
   } catch (err) {
     console.error("Lỗi gửi email:", err);
     alert("❌ Gửi email thất bại. Vui lòng thử lại sau.");
+  } finally {
+    // 🔥 ẨN LOADING (DÙ THÀNH CÔNG HAY THẤT BẠI)
+    loadingOverlay.classList.add("hidden");
+    commitCheckbox.checked = false;
+    submitRescue.disabled = true;
+
   }
-
-  rescueModal.classList.add("hidden");
-
-  // reset form
-  rescueName.value = "";
-  rescuePhone.value = "";
-  rescueAddress.value = "";
-  rescueReason.value = "";
 };
+
 // Hàm gửi email qua EmailJS
 async function sendEmail(name, phone, address, desc) {
   const templateParams = {

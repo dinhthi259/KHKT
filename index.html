@@ -95,6 +95,13 @@
             <p class="legal-warning">
                 ⚠️ Lưu ý: Việc báo cáo sai sự thật sẽ bị xử lý theo quy định của pháp luật.
             </p>
+            <div class="rescue-commit">
+                <label>
+                    <input type="checkbox" id="commitCheckbox" />
+                    Tôi cam kết thông tin là đúng sự thật
+                </label>
+            </div>
+
 
             <div class="rescue-actions">
                 <button id="submitRescue">📨 Gửi báo cáo</button>
@@ -102,13 +109,19 @@
             </div>
         </div>
     </div>
+    <!-- Loading Spinner -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Đang gửi yêu cầu cứu hộ...</p>
+    </div>
+
 
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
 
-    <script src="app.js"></script>  
+    <script src="app.js"></script>
 </body>
 
 </html>

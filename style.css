@@ -214,7 +214,7 @@ button {
 ========================= */
 .rescue-content input,
 .rescue-content textarea {
-  width: 100%;
+  width: 95%;
   padding: 10px 12px;
   border-radius: 8px;
   border: 1.5px solid #ccc;
@@ -277,6 +277,10 @@ button {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(255, 59, 59, 0.4);
 }
+#submitRescue:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 /* CANCEL BUTTON */
 #cancelRescue {
@@ -305,4 +309,40 @@ button {
     transform: translateY(0);
     opacity: 1;
   }
+}
+/* ===== LOADING OVERLAY ===== */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    font-size: 16px;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+/* Spinner */
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 12px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
