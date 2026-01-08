@@ -70,6 +70,7 @@ map.on("drag", () => map.panInsideBounds(bounds));
 let startMarker = null;
 let endMarker = null;
 let routeLine = null;
+let osmLoaded = false;
 
 /* =========================
    BLOCKED ROADS
@@ -195,7 +196,6 @@ out geom tags;
     road.oneway = parseOneWay(road.tags);
 
     road.on("click", () => {
-      road.isBlocked = !road.isBlocked;
       road.setStyle(
         road.isBlocked
           ? { color: "red", dashArray: "5,5" }
@@ -233,6 +233,13 @@ out geom tags;
   });
 
   console.log("Graph nodes:", graph.nodes.size);
+
+  osmLoaded = true;
+
+  // 🔥 NẾU ĐANG NGẬP → BLOCK NGAY SAU KHI LOAD
+  if (isFloodMode) {
+    setRoadBlockedByOSM(1279915923, true);
+  }
 }
 
 loadOSMRoads();
@@ -489,8 +496,12 @@ async function checkFloodStatus() {
       isFloodMode = shouldFlood;
       floodAcknowledged = false; // reset khi có thay đổi trạng thái
 
+      if (osmLoaded) {
+        setRoadBlockedByOSM(1279915923, isFloodMode);
+      }
+
       // 👉 BLOCK đường OSM theo logic ngập (bạn đã làm ở bước trước)
-      if (isFloodMode) {
+      if (isFloodMode && !floodAcknowledged) {
         setRoadBlockedByOSM(1279915923, true);
       } else {
         setRoadBlockedByOSM(1279915923, false);
@@ -519,7 +530,7 @@ document.getElementById("clearBlock").onclick = () => {
   updateBlockedList();
 };
 
-setInterval(checkFloodStatus, 3000);
+setInterval(checkFloodStatus, 1000);
 /* =========================
    RESCUE REPORT (MANUAL)
 ========================= */
@@ -535,7 +546,6 @@ const rescueReason = document.getElementById("rescueReason");
 
 const loadingOverlay = document.getElementById("loadingOverlay");
 const commitCheckbox = document.getElementById("commitCheckbox");
-
 
 submitRescue.disabled = true;
 commitCheckbox.addEventListener("change", () => {
@@ -563,9 +573,9 @@ cancelRescue.onclick = () => {
 // Gửi báo cáo
 submitRescue.onclick = async () => {
   if (!commitCheckbox.checked) {
-  alert("⚠️ Bạn phải cam kết thông tin là đúng sự thật trước khi gửi.");
-  return;
-}
+    alert("⚠️ Bạn phải cam kết thông tin là đúng sự thật trước khi gửi.");
+    return;
+  }
   const name = rescueName.value.trim();
   const phone = rescuePhone.value.trim();
   const address = rescueAddress.value.trim();
@@ -604,7 +614,6 @@ submitRescue.onclick = async () => {
     rescuePhone.value = "";
     rescueAddress.value = "";
     rescueReason.value = "";
-
   } catch (err) {
     console.error("Lỗi gửi email:", err);
     alert("❌ Gửi email thất bại. Vui lòng thử lại sau.");
@@ -613,7 +622,6 @@ submitRescue.onclick = async () => {
     loadingOverlay.classList.add("hidden");
     commitCheckbox.checked = false;
     submitRescue.disabled = true;
-
   }
 };
 

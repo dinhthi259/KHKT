@@ -5,7 +5,7 @@ app = Flask(__name__)
 CORS(app)
 
 # ====== CẤU HÌNH ======
-FLOOD_THRESHOLD = 1.5  # cm
+FLOOD_THRESHOLD = 1.0  # cm
 FLOODED_WAYS = ["1279915923"]  # OSM Way bị ngập
 
 current_flood = False
